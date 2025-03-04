@@ -14,25 +14,63 @@ namespace MultiWindForm
     {
         private MainForm _mainForm;
         private int CustomerCount;
+        private bool IsEditing;
+        private int CurrentSelectionId;
+
         public NewCustomerForm(MainForm form)
         {
             InitializeComponent();
             _mainForm = form;
             CustomerCount = 1;
+            IsEditing = false;
+            CurrentSelectionId = -1;
+        }
+
+        public void ToggleEdit(bool newState)
+        {
+            IsEditing = newState;   
+        }
+
+        public void CreateCustomer() 
+        {
+            Customer customer = new Customer
+                {
+                    CustomerID = CustomerCount,
+                    Name = txtName.Text,
+                    PhoneNumber = txtPhoneNumber.Text,
+                    Email = txtEmail.Text
+                };
+
+                _mainForm.AddCustomer(customer);
+                CustomerCount++;
+        }
+
+        private void EditCustomer()
+        {
+            MessageBox.Show("Form is being edited.");
+            _mainForm.EditCustomer(CurrentSelectionId, new Customer
+            {
+                CustomerID = CurrentSelectionId,
+                Name = txtName.Text,
+                PhoneNumber = txtPhoneNumber.Text,
+                Email = txtEmail.Text
+            });
+
+            CurrentSelectionId = -1;
+            ToggleEdit(false);
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            Customer customer = new Customer
+            if (IsEditing) 
+            { 
+               EditCustomer();
+            }
+            else
             {
-                CustomerID = 0,
-                Name = txtName.Text,
-                PhoneNumber = txtPhoneNumber.Text,
-                Email = txtEmail.Text
-            };
-
-            _mainForm.AddCustomer(customer);
-            CustomerCount++;
+                CreateCustomer();
+            }
+            
 
             ClearForm();
 
@@ -47,6 +85,7 @@ namespace MultiWindForm
 
         public void LoadCustomer(Customer customer)
         {
+            CurrentSelectionId = customer.CustomerID;
             txtName.Text = customer.Name;
             txtPhoneNumber.Text = customer.PhoneNumber;
             txtEmail.Text = customer.Email;

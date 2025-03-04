@@ -17,13 +17,14 @@ namespace MultiWindForm
                 Email = "christian.garcia@student.centralia.edu"
             });
 
-           ReloadDataGrid();
+            ReloadDataGrid();
+
         }
 
         private void ReloadDataGrid()
         {
-            dvgCustomers.DataSource = null;
-            dvgCustomers.DataSource = _customerList;
+            dgvCustomers.DataSource = null;
+            dgvCustomers.DataSource = _customerList;
         }
         private void btnNew_Click(object sender, EventArgs e)
         {
@@ -33,7 +34,44 @@ namespace MultiWindForm
         public void AddCustomer(Customer customer)
         {
             _customerList.Add(customer);
-           ReloadDataGrid();
+            ReloadDataGrid();
+        }
+
+        public void EditCustomer(int id, Customer updatedCustomer)
+        {
+            MessageBox.Show("Mainform is editing the customer now.");
+
+            var cust = _customerList.Find(c => c.CustomerID == id);
+
+            if (cust != null) 
+            {
+                cust.Name = updatedCustomer.Name;
+                cust.PhoneNumber = updatedCustomer.PhoneNumber;
+                cust.Email = updatedCustomer.Email;
+
+                ReloadDataGrid();
+            }
+        }
+
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+            Customer cust;
+
+            var index = dgvCustomers.SelectedRows[0].Index;
+
+            cust = _customerList[index];
+
+            _customerForm.LoadCustomer(cust);
+
+            _customerForm.ToggleEdit(true);
+
+
+            _customerForm.Show();
+        }
+
+        private void dgvCustomers_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            btnEdit.Visible = true;
         }
     }
 }

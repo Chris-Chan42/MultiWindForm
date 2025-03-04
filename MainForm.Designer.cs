@@ -30,14 +30,14 @@
         {
             components = new System.ComponentModel.Container();
             btnNew = new Button();
-            dvgCustomers = new DataGridView();
+            dgvCustomers = new DataGridView();
             customerIDDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             nameDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             phoneNumberDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             emailDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             customerBindingSource = new BindingSource(components);
             btnEdit = new Button();
-            ((System.ComponentModel.ISupportInitialize)dvgCustomers).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvCustomers).BeginInit();
             ((System.ComponentModel.ISupportInitialize)customerBindingSource).BeginInit();
             SuspendLayout();
             // 
@@ -52,17 +52,19 @@
             btnNew.UseVisualStyleBackColor = true;
             btnNew.Click += btnNew_Click;
             // 
-            // dvgCustomers
+            // dgvCustomers
             // 
-            dvgCustomers.AutoGenerateColumns = false;
-            dvgCustomers.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dvgCustomers.Columns.AddRange(new DataGridViewColumn[] { customerIDDataGridViewTextBoxColumn, nameDataGridViewTextBoxColumn, phoneNumberDataGridViewTextBoxColumn, emailDataGridViewTextBoxColumn });
-            dvgCustomers.DataSource = customerBindingSource;
-            dvgCustomers.Location = new Point(12, 59);
-            dvgCustomers.MultiSelect = false;
-            dvgCustomers.Name = "dvgCustomers";
-            dvgCustomers.Size = new Size(776, 379);
-            dvgCustomers.TabIndex = 1;
+            dgvCustomers.AutoGenerateColumns = false;
+            dgvCustomers.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvCustomers.Columns.AddRange(new DataGridViewColumn[] { customerIDDataGridViewTextBoxColumn, nameDataGridViewTextBoxColumn, phoneNumberDataGridViewTextBoxColumn, emailDataGridViewTextBoxColumn });
+            dgvCustomers.DataSource = customerBindingSource;
+            dgvCustomers.Location = new Point(12, 59);
+            dgvCustomers.MultiSelect = false;
+            dgvCustomers.Name = "dgvCustomers";
+            dgvCustomers.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvCustomers.Size = new Size(776, 379);
+            dgvCustomers.TabIndex = 1;
+            dgvCustomers.CellContentClick += dgvCustomers_CellContentClick;
             // 
             // customerIDDataGridViewTextBoxColumn
             // 
@@ -100,7 +102,7 @@
             btnEdit.TabIndex = 2;
             btnEdit.Text = "Edit Customer";
             btnEdit.UseVisualStyleBackColor = true;
-
+            btnEdit.Click += btnEdit_Click;
             // 
             // MainForm
             // 
@@ -108,11 +110,11 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
             Controls.Add(btnEdit);
-            Controls.Add(dvgCustomers);
+            Controls.Add(dgvCustomers);
             Controls.Add(btnNew);
             Name = "MainForm";
             Text = "Form1";
-            ((System.ComponentModel.ISupportInitialize)dvgCustomers).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvCustomers).EndInit();
             ((System.ComponentModel.ISupportInitialize)customerBindingSource).EndInit();
             ResumeLayout(false);
         }
@@ -120,7 +122,7 @@
         #endregion
 
         private Button btnNew;
-        private DataGridView dvgCustomers;
+        private DataGridView dgvCustomers;
         private DataGridViewTextBoxColumn customerIDDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn phoneNumberDataGridViewTextBoxColumn;
